@@ -2,3 +2,6 @@
 *.pdf
 *.docx
 *.md
+*.rar
+*.pyc
+*test*
