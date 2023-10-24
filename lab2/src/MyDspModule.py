@@ -21,3 +21,10 @@ class Signal:
             dX = xf * np.exp(1j * coe * time[i] * f) * df
             X_idtft[i] = dX.sum()
         return X_idtft / (2 * np.pi + 1 - coe)
+
+    def myfilter(bz, az, x):
+        y = np.zeros(len(x) + len(bz))
+        for i in range(len(y)):
+            for k in range(len(bz)):
+                y[i] += bz[k] * x[i - k] if 0 <= i - k < len(x) else 0
+        return y
