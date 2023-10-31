@@ -51,4 +51,5 @@ plt.grid(True)
 
 print("Overshoot = ", np.abs(Hjw).max() - 1)
 
+plt.tight_layout()
 plt.show()

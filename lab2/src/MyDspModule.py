@@ -22,9 +22,23 @@ class Signal:
             X_idtft[i] = dX.sum()
         return X_idtft / (2 * np.pi + 1 - coe)
 
-    def myfilter(bz, az, x):
+    def myfilter_fir(bz, az, x):
         y = np.zeros(len(x) + len(bz))
         for i in range(len(y)):
             for k in range(len(bz)):
                 y[i] += bz[k] * x[i - k] if 0 <= i - k < len(x) else 0
         return y
+
+    def myfilter_iir(bz, az, x) -> np.array:
+        y = np.zeros_like(x)
+        m = len(bz)
+        n = len(az)
+        for k in range(0, len(y)):
+            for i in range(0, n):
+                y[k] += bz[i] * x[k - i] if k - i >= 0 else 0
+            for i in range(1, m):
+                y[k] -= az[i] * y[k - i] if k - i >= 0 else 0
+        return y
+
+    def mybilinear(b, a, fs=1):
+        pass

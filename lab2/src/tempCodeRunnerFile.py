@@ -1,1 +1,1 @@
-block[0][:200], block[1][:200]
+fir_kaiser.size, xn.size
