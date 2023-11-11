@@ -1,0 +1,22 @@
+# Author : Qirui Bao
+# my_CTFT
+import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+
+class my_CTFT:
+    def __init__(self, x=None, t=None, f=None):
+        if x is None:
+            x = []
+        if f is None:
+            f = []
+        if t is None:
+            t = []
+        self.f = f
+        self.t = t
+        nf = len(f)
+        dt = t[2] - t[1]
+        self.X = np.zeros(nf)
+        for ii in [1, nf]:
+            self.X[ii] = sum(x * math.exp(-1j * f[ii] * 2 * math.pi * t) * dt)

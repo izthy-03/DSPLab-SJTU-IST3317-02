@@ -1,0 +1,25 @@
+# Author : Qirui Bao
+# FIR filter
+
+import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+
+class ideal_FIR:
+    def __init__(self, wc):
+        self.wc = wc
+        # cut-off frequency,e.g.0.2*2*math.pi
+        dw = 0.001
+        w1 = np.arange(-math.pi, math.pi + dw, dw)
+        H = np.zeros(len(w1))
+        ind = np.argwhere(w1 <= wc & w1 >= -wc)
+        H[ind] = 1
+        n_max = 150
+        # related to length of h1[n]
+        n = np.arange(-n_max, n_max, 1)
+        N = len(n)
+        self.h = np.zeros(N)
+        # IRF of the ideal filter
+        for ii in [1, N]:
+            self.h[ii] = sum(H * math.exp(1j * w1 * n[ii])) * dw / 2 / math.pi

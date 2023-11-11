@@ -1,0 +1,32 @@
+# Author : Qirui Bao
+# my_filter
+import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+
+class my_filter:
+    def __init__(self, n, az=None, bz=None, x=None):
+        if x is None:
+            x = []
+        if bz is None:
+            bz = []
+        if az is None:
+            az = []
+        self.N = n
+        self.az = az
+        self.bz = bz
+        self.x = x
+        self.la = len(az)
+        self.lb = len(bz)
+        self.lx = len(x)
+        self.y = np.zeros(self.N)
+
+        for ii in [1, self.N]:
+            for jj in [1, self.la - 1]:
+                if ii - jj > 0:
+                    self.y[ii] = self.y[ii] - self.az[jj + 1] * self.y[ii - jj]
+            for jj in [0, self.lb - 1]:
+                if ii - jj > 0 & ii - jj <= self.lx:
+                    self.y[ii] = self.y[ii] + self.bz[jj + 1] * self.x[ii - jj]
+            self.y[ii] = self.y[ii] / self.az[1]

@@ -1,0 +1,22 @@
+# Author : Qirui Bao
+# my_DTFT
+import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+
+class my_DTFT:
+    def __init__(self, nT, xn=None, f=None):
+        if xn is None:
+            xn = []
+        if f is None:
+            f = []
+        self.f = f
+        self.nT = nT
+        nf = len(f)
+        self.X = np.zeros(nf)
+        for ii in [1, nf]:
+            self.X[ii] = sum(xn * math.exp(-1j * f[ii] * 2 * math.pi * nT))
+
+
+

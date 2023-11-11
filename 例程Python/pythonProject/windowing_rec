@@ -1,0 +1,30 @@
+# Author : Qirui Bao
+# rect window
+import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+
+class windowing_rec:
+    def __init__(self, f1, f2, A1, A2, T, fs, x=None):
+        if x is None:
+            x = []
+        self.f1 = f1
+        self.f2 = f2
+        self.A1 = A1
+        self.A2 = A2
+        self.T = T
+        self.fs = fs
+        self.Xw = []
+        dt = 1/fs
+        t = np.arange(0, 2 * T, dt)
+        L = len(t)
+        win = np.ones(L)
+        # rectangle window
+        xw = x*win
+        n = t/dt
+        f = np.arange(-fs/2, fs/2+0.1, 0.1)
+        fn = f/fs
+        nf = len(fn)
+        for ii in [1, nf]:
+            self.Xw[ii] = sum(xw * math.exp(-1j * fn[ii] * 2 * math.pi * n))

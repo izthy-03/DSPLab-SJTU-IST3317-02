@@ -1,0 +1,36 @@
+# Author : Qirui Bao
+# comb filter
+# wn1:polar angle of first zero and pole, normalized frequency
+# wn2:polar angle of second zero and pole, normalized frequency
+# rp:polar diameter of poles
+# rz:polar diameter of zeros
+
+import matplotlib.pyplot as plt
+import math
+import numpy as np
+
+
+class my_comb:
+    def __init__(self, wn1, wn2, rp, rz):
+        self.wn1 = wn1
+        self.wn2 = wn2
+        self.rp = rp
+        self.rz = rz
+        self.Hz = []
+        z1 = rz * math.exp(1j * wn1)
+        # first zero
+        p1 = rp * math.exp(1j * wn1)
+        # first pole
+        z2 = rz * math.exp(1j * wn2)
+        # second zero
+        p2 = rp * math.exp(1j * wn2)
+        # second pole
+        dw = 0.001
+        w = np.arange(0, 2 * np.pi, dw)
+        # FRFof the comb filter
+        z = math.exp(1j * w)
+        temp = np.zeros(len(w))
+        temp = (z-z1) * (z-z1.conjugate()) * (z-z2) * (z-z2.conjugate()) / ((z-p1) * (z-p1.conjugate()) * (z-p2) * (z-p2.conjugate()))
+        self.Hz.append(temp)
+
+
